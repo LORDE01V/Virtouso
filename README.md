@@ -69,7 +69,7 @@ virtuoso/
 ### Installation
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/LORDE01V/Virtouso
 cd virtuoso
 
 python -m venv .venv
