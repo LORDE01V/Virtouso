@@ -198,7 +198,7 @@ gunicorn --chdir backend --bind 0.0.0.0:7860 --workers 2 --threads 4 app:app
 ## Author
 
 **Kgothatso Mokgashi**  
-Software Engineer | Johannesburg, South Africa
+Full Stack Developer | Johannesburg, South Africa
 
 - LinkedIn: [kgothatso-mokgashi](https://www.linkedin.com/in/kgothatso-mokgashi/)
 - GitHub: [LORDE01V](https://github.com/LORDE01V)

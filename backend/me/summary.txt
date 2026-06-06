@@ -1,5 +1,5 @@
 PROFESSIONAL SUMMARY
-Kgothatso Mokgashi is a high-agency, production-ready Full Stack AI and Automation Engineer with a proven track record of optimizing business operations and building robust engineering architectures. Combining deep resilience with extreme execution speed, Kgothatso specializes in high-throughput asynchronous backend systems, advanced Retrieval-Augmented Generation (RAG) engines, and zero-friction CI/CD staging-to-production deployment pipelines.
+Kgothatso Mokgashi is a high-agency, production-ready Full Stack Developer with strong experience in AI-enabled applications and automation, with a proven track record of optimizing business operations and building robust engineering architectures. Combining deep resilience with extreme execution speed, Kgothatso specializes in high-throughput asynchronous backend systems, advanced Retrieval-Augmented Generation (RAG) engines, and zero-friction CI/CD staging-to-production deployment pipelines.
 
 TECHNICAL ARCHITECTURE & CORE STACK
 - AI Engineering & Frameworks: Agentic Multi-Agent Systems (CrewAI Certified), Multi-Provider Model Orchestration (OpenAI, Gemini, Groq), Model Context Protocol (MCP), Hugging Face APIs

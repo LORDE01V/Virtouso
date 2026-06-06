@@ -15,6 +15,52 @@ def _whatsapp_url() -> str:
     return f"https://wa.me/{WHATSAPP_NUMBER}" if WHATSAPP_NUMBER else ""
 
 
+def _normalize_link_text(text: str) -> str:
+    return (
+        text.lower()
+        .replace("linked-in", "linkedin")
+        .replace("linked in", "linkedin")
+        .replace("git hub", "github")
+    )
+
+
+def _wants_to_open(text: str) -> bool:
+    intents = (
+        "open",
+        "view",
+        "show",
+        "see",
+        "visit",
+        "take me",
+        "go to",
+        "check",
+        "browse",
+        "navigate",
+        "link to",
+        "bring up",
+        "pull up",
+    )
+    return any(term in text for term in intents)
+
+
+def _match_open_link(text: str) -> str | None:
+    normalized = _normalize_link_text(text)
+
+    platforms = (
+        (("linkedin",), LINKEDIN_URL),
+        (("github", "git hub"), GITHUB_URL),
+        (("whatsapp", "whats app"), _whatsapp_url()),
+    )
+
+    for keywords, url in platforms:
+        if not url or not any(keyword in normalized for keyword in keywords):
+            continue
+        if _wants_to_open(normalized) or normalized.strip() in keywords:
+            return url
+
+    return None
+
+
 class PortfolioService:
     def __init__(self, base_dir: Path):
         self.base_dir = base_dir
@@ -34,36 +80,21 @@ class PortfolioService:
         return extract_resume_text(self.resume_path)
 
     def process_message(self, message: str) -> dict:
-        text = message.lower()
+        text = _normalize_link_text(message)
 
-        if "resume" in text or "cv" in text:
+        if ("resume" in text or "cv" in text) and (
+            _wants_to_open(text)
+            or "download" in text
+            or text.strip() in {"resume", "cv"}
+        ):
             return {"action": "download_resume"}
 
-        if "linkedin" in text:
-            return {"action": "open_link", "url": LINKEDIN_URL}
-
-        if self._should_open_github(text):
-            return {"action": "open_link", "url": GITHUB_URL}
-
-        if "whatsapp" in text:
-            url = _whatsapp_url()
-            if url:
-                return {"action": "open_link", "url": url}
+        link = _match_open_link(text)
+        if link:
+            return {"action": "open_link", "url": link}
 
         if any(keyword in text for keyword in INTERVIEW_KEYWORDS):
             return self.interview.handle_chat_request(message, self.ai)
 
         answer = self.ai.generate_response(self.context, message)
         return {"action": "chat", "message": answer}
-
-    @staticmethod
-    def _should_open_github(text: str) -> bool:
-        link_intent = ("view", "open", "show me", "see his", "see my", "take me", "link to")
-        github_terms = ("github", "repo", "repos")
-        project_terms = ("project", "projects")
-
-        wants_link = any(term in text for term in link_intent)
-        mentions_github = any(term in text for term in github_terms)
-        mentions_projects = any(term in text for term in project_terms)
-
-        return wants_link and (mentions_github or mentions_projects)

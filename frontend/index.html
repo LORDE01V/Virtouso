@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kgothatso Mokgashi - Software Engineer & AI Specialist</title>
+    <title>Kgothatso Mokgashi - Full Stack Developer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         * {
@@ -880,11 +880,10 @@
         <section class="page-section hero-grid">
             <div>
                 <h2 class="hero-title">
-                    AI Engineer &
                     <span class="gradient-text">Full Stack Developer</span>
                 </h2>
                 <p class="hero-text">
-                    Building intelligent systems and scalable applications. Specialized in Python, FastAPI, React, and LLM integration. Helping businesses solve complex problems with clean, maintainable code.
+                    Building scalable web applications and AI-enabled products. Working with Python, FastAPI, React, and LLM integration to solve real business problems with clean, maintainable code.
                 </p>
                 <div class="flex flex-wrap gap-3 mb-8">
                     <span class="skill-badge">Python</span>
@@ -1006,7 +1005,7 @@
     <!-- Footer -->
     <footer class="border-t border-zinc-800 glass-effect">
         <div class="site-footer-inner">
-            <p>Kgothatso Mokgashi | Software Engineer | Johannesburg, South Africa</p>
+            <p>Kgothatso Mokgashi | Full Stack Developer | Johannesburg, South Africa</p>
             <p class="mt-2" id="footer-contact" hidden>
                 <a id="footer-email" href="#" class="text-emerald-400 hover:text-emerald-300 transition"></a>
                 <span id="footer-contact-separator" hidden> | </span>
@@ -1136,6 +1135,16 @@
         function getAssistantAvatarSrc() {
             const avatar = document.getElementById('chat-header-avatar');
             return avatar && avatar.src ? avatar.src : CONFIG.PROFILE_IMAGE;
+        }
+
+        function openExternalUrl(url) {
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
         }
 
         function appendChatMessage(text, role) {
@@ -1371,8 +1380,8 @@
                 if (result.action === 'chat' && result.message) {
                     appendChatMessage(result.message, 'assistant');
                 } else if (result.action === 'open_link' && result.url) {
-                    window.open(result.url, '_blank');
-                    appendChatMessage('Opening that link for you now.', 'assistant');
+                    openExternalUrl(result.url);
+                    appendChatMessage(`Opening that link for you now: ${result.url}`, 'assistant');
                 } else if (result.action === 'download_resume' || result.action === 'download') {
                     appendChatMessage('Starting your resume download now.', 'assistant');
                     downloadResume();
