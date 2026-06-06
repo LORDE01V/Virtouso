@@ -7,7 +7,7 @@ __pycache__/
 .git/
 .gitignore
 
-# Local-only assets (resume comes from RESUME_URL in production)
+# Local-only assets (profile + resume come from env URLs in production)
 backend/data/
-backend/me/*.pdf
-backend/me/*.docx
+backend/me/*
+!backend/me/summary.txt

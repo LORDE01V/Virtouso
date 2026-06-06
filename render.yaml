@@ -9,10 +9,13 @@ services:
     dockerContext: .
     plan: free
     healthCheckPath: /health
+    # Leave Root Directory blank in the dashboard — must be a Web Service, not Static Site
     envVars:
       - key: OPENAI_API_KEY
         sync: false
       - key: RESUME_URL
+        sync: false
+      - key: PROFILE_IMAGE_URL
         sync: false
       - key: CONTACT_EMAIL
         sync: false

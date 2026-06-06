@@ -1091,7 +1091,7 @@
         // ============================================================
 
         const CONFIG = {
-            PROFILE_IMAGE: '/me/kgothatso_BG.png',
+            PROFILE_IMAGE: '',
             API_BASE_URL: window.location.origin || 'http://127.0.0.1:7860',
             RESUME_FILENAME: 'Kgothatso_Mokgashi_Resume.docx',
         };
@@ -1100,7 +1100,7 @@
             const sources = [
                 CONFIG.PROFILE_IMAGE,
                 `${CONFIG.API_BASE_URL}/api/profile-image`,
-            ];
+            ].filter(Boolean);
 
             const imageTargets = [
                 'splash-image',
@@ -1220,8 +1220,12 @@
         }
 
         document.body.classList.add('splash-active');
-        setProfileImages();
-        loadPublicConfig();
+        initApp();
+
+        async function initApp() {
+            await loadPublicConfig();
+            setProfileImages();
+        }
 
         async function loadPublicConfig() {
             try {
@@ -1229,6 +1233,10 @@
                 if (!response.ok) return;
 
                 const cfg = await response.json();
+
+                if (cfg.profile_image) {
+                    CONFIG.PROFILE_IMAGE = cfg.profile_image;
+                }
 
                 if (cfg.github_url) {
                     const github = document.getElementById('nav-github');
@@ -1351,12 +1359,14 @@
                     }),
                 });
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const result = await response.json();
+                const result = await response.json().catch(() => null);
                 loadingRow.remove();
+
+                if (!response.ok || !result) {
+                    throw new Error(
+                        result?.error || `API unavailable (${response.status}). Check Render is a Web Service running Flask, not a Static Site.`
+                    );
+                }
 
                 if (result.action === 'chat' && result.message) {
                     appendChatMessage(result.message, 'assistant');
@@ -1538,10 +1548,13 @@
                     }),
                 });
 
-                const result = await response.json();
+                const result = await response.json().catch(() => null);
 
-                if (!response.ok) {
-                    alert(result.error || 'Failed to schedule interview. Please try again.');
+                if (!response.ok || !result) {
+                    alert(
+                        result?.error
+                        || `Scheduling API unavailable (${response.status}). Redeploy as a Docker Web Service.`
+                    );
                     return;
                 }
 

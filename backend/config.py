@@ -6,9 +6,19 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent
 ROOT_DIR = BASE_DIR.parent
-FRONTEND_DIR = ROOT_DIR / "frontend"
+
+
+def _resolve_frontend_dir() -> Path:
+    for candidate in (ROOT_DIR / "frontend", BASE_DIR / "frontend", Path("/app/frontend")):
+        if (candidate / "index.html").exists():
+            return candidate
+    return ROOT_DIR / "frontend"
+
+
+FRONTEND_DIR = _resolve_frontend_dir()
 
 load_dotenv(ROOT_DIR / ".env")
+load_dotenv(BASE_DIR / ".env")
 load_dotenv()
 
 # Secrets — never commit .env
@@ -23,6 +33,10 @@ CONTACT_PHONE = os.getenv("CONTACT_PHONE", "")
 WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "")
 LINKEDIN_URL = os.getenv("LINKEDIN_URL", "https://www.linkedin.com/in/kgothatso-mokgashi/")
 GITHUB_URL = os.getenv("GITHUB_URL", "https://github.com/LORDE01V")
+
+# Profile image — Cloudinary URL in production; local file in backend/me/ for dev
+PROFILE_IMAGE_URL = os.getenv("PROFILE_IMAGE_URL", "").strip()
+PROFILE_IMAGE_FILENAME = os.getenv("PROFILE_IMAGE_FILENAME", "kgothatso_BG.png")
 
 # Resume — local file, Render secret file, or Cloudinary
 RESUME_FILENAME = os.getenv("RESUME_FILENAME", "Kgothatso_Mokgashi_Resume.pdf")

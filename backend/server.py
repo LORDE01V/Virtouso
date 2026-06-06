@@ -11,6 +11,8 @@ from config import (
     GITHUB_URL,
     GOOGLE_PLACES_API_KEY,
     LINKEDIN_URL,
+    PROFILE_IMAGE_FILENAME,
+    PROFILE_IMAGE_URL,
     RESUME_URL,
     WHATSAPP_NUMBER,
 )
@@ -20,7 +22,10 @@ from services.portfolio_service import PortfolioService
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-PROFILE_IMAGE = "kgothatso_BG.png"
+def _profile_image_public_url() -> str:
+    if PROFILE_IMAGE_URL:
+        return PROFILE_IMAGE_URL
+    return f"/me/{PROFILE_IMAGE_FILENAME}"
 
 
 def create_app():
@@ -38,10 +43,12 @@ def create_app():
 
     @app.get("/api/profile-image")
     def profile_image():
-        image_path = BASE_DIR / "me" / PROFILE_IMAGE
+        if PROFILE_IMAGE_URL:
+            return redirect(PROFILE_IMAGE_URL, code=302)
+        image_path = BASE_DIR / "me" / PROFILE_IMAGE_FILENAME
         if not image_path.exists():
             return jsonify({"error": "Profile image not found"}), 404
-        return send_from_directory(BASE_DIR / "me", PROFILE_IMAGE)
+        return send_from_directory(BASE_DIR / "me", PROFILE_IMAGE_FILENAME)
 
     @app.get("/health")
     def health():
@@ -56,7 +63,7 @@ def create_app():
         whatsapp_url = f"https://wa.me/{WHATSAPP_NUMBER}" if WHATSAPP_NUMBER else ""
 
         return jsonify({
-            "profile_image": f"/me/{PROFILE_IMAGE}",
+            "profile_image": _profile_image_public_url(),
             "google_places_api_key": GOOGLE_PLACES_API_KEY or None,
             "contact_email": CONTACT_EMAIL or None,
             "contact_phone": CONTACT_PHONE or None,
@@ -104,8 +111,18 @@ def create_app():
             return redirect(RESUME_URL, code=302)
         return jsonify({"error": "Resume not found"}), 404
 
+    @app.get("/api/routes")
+    def list_routes():
+        return jsonify({
+            "routes": sorted({rule.rule for rule in app.url_map.iter_rules()}),
+            "frontend_dir": str(FRONTEND_DIR),
+            "frontend_exists": (FRONTEND_DIR / "index.html").exists(),
+            "profile_image_url": _profile_image_public_url(),
+        })
+
     logger.info("Resume path: %s", portfolio.resume_path)
-    logger.info("Frontend: %s", FRONTEND_DIR)
-    logger.info("Profile image: %s/me/%s", BASE_DIR, PROFILE_IMAGE)
+    logger.info("Frontend: %s (exists=%s)", FRONTEND_DIR, (FRONTEND_DIR / "index.html").exists())
+    logger.info("Profile image: %s", _profile_image_public_url())
+    logger.info("Registered routes: %s", sorted(rule.rule for rule in app.url_map.iter_rules()))
 
     return app

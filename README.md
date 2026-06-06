@@ -112,6 +112,7 @@ pytest backend/tests/test_app.py
 |----------|----------|---------|
 | `OPENAI_API_KEY` | Yes | Chat assistant |
 | `RESUME_URL` | No | Public resume URL (Cloudinary, R2, etc.) |
+| `PROFILE_IMAGE_URL` | No | Profile photo URL (Cloudinary) |
 | `CONTACT_EMAIL` | No | Footer contact (production) |
 | `CONTACT_PHONE` | No | Footer contact (production) |
 | `WHATSAPP_NUMBER` | No | WhatsApp button (digits with country code) |
@@ -142,6 +143,7 @@ For local dev, you can also place a resume in `backend/me/` — that takes prior
 
 - `.env` and API keys
 - Resume files in `backend/me/*.pdf` or `*.docx`
+- Profile images in `backend/me/*.png` (use `PROFILE_IMAGE_URL` on Cloudinary)
 - `backend/data/` (visitor scheduling logs)
 - Hardcoded personal contact details in source files
 
