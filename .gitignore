@@ -1,0 +1,12 @@
+
+.venv/
+venv/
+__pycache__/
+*.pyc
+.env
+.pytest_cache/
+
+# Local data and private assets
+backend/data/
+backend/me/*.pdf
+backend/me/*.docx

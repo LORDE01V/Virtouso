@@ -1,0 +1,13 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+.git/
+.gitignore
+
+# Local-only assets (resume comes from RESUME_URL in production)
+backend/data/
+backend/me/*.pdf
+backend/me/*.docx

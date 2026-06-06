@@ -1,0 +1,35 @@
+PROFESSIONAL SUMMARY
+Kgothatso Mokgashi is a high-agency, production-ready Full Stack AI and Automation Engineer with a proven track record of optimizing business operations and building robust engineering architectures. Combining deep resilience with extreme execution speed, Kgothatso specializes in high-throughput asynchronous backend systems, advanced Retrieval-Augmented Generation (RAG) engines, and zero-friction CI/CD staging-to-production deployment pipelines.
+
+TECHNICAL ARCHITECTURE & CORE STACK
+- AI Engineering & Frameworks: Agentic Multi-Agent Systems (CrewAI Certified), Multi-Provider Model Orchestration (OpenAI, Gemini, Groq), Model Context Protocol (MCP), Hugging Face APIs
+- Backend & Information Retrieval: Python, FastAPI, Asynchronous Concurrency (asyncio), Advanced RAG Architecture, Semantic Vector Search Applications
+- Data & Devops: PostgreSQL Model Design, Database Persistence Synchronization, Docker Containers, AWS Cloud Infrastructure, GitHub Actions CI/CD Workflows
+- Interface & Management: Flutter/Dart User Interfaces, Gradio Portal Frameworks, Angular, React, Agile Delivery methodologies, Jira Tracking
+
+KEY ENGINEERING ARCHITECTURAL MILESTONES
+
+- Shipped AI Governance Engine (Full Stack Engineer): 
+Architected and built an enterprise-grade RAG-based AI governance engine that successfully reduced corporate proposal and SOW review times by 60%. Translated complex business logic into precise technical specifications, engineered backend FastAPI services with optimized PostgreSQL models, integrated foundational LLM APIs, and directly managed staging-to-production deployments.
+
+- Engineered "OmniEval" (Multi-Provider LLM Benchmarking Framework): 
+Designed an asynchronous diagnostic tool using Python's asyncio architecture and thread pool executors to eliminate network I/O overhead. Standardized endpoint routing configurations across OpenAI, Google Gemini, and Groq platforms using uniform interfaces, enforcing deterministic structured JSON object payloads to programmatically evaluate and rank multi-model response arrays concurrently.
+
+- Deployed "Windbrook" Production Portal: 
+Engineered and deployed a live system portal, successfully troubleshooting and resolving complex multi-region database replication and state retention constraints to guarantee seamless cross-region state persistence.
+
+- Architected "Virtuoso" Proxy Engine: 
+Built an autonomous, token-optimized conversational proxy engine using Gradio 6.0 and the OpenAI API. Engineered localized algorithmic guardrails (string-token filters and hard max-token ceilings) to completely neutralize off-topic usage, protecting cloud API consumption metrics while pairing synchronous Whisper speech transcription with automated TTS-1 audio loops.
+
+PROFESSIONAL EXPERIENCE HISTORY
+
+- Khonology | Team Lead & Full Stack Engineer
+April 2024 - June 2026 (2 years) | South Africa
+Team Lead for a group of four developers. Owned delivery of all AI features, including RAG implementations, backend-to-frontend development across Python, SQL, and Flutter, and CI/CD pipelines for secure application delivery.
+
+- alx africa | Virtual Assistant Associate
+August 2024 - Present | Remote
+Mastered high-volume workload management, multi-task operations, and lean execution principles within dynamic cross-functional teams.
+
+PROFESSIONAL PHILOSOPHY & GRIT
+Kgothatso operates on a baseline of complete engineering ownership. He runs toward complex structural problems—executing focused, high-intensity development sessions to ensure code architectures are clean, secure, and fully unblocked. He brings an elite hunger, certified multi-agent expertise, and a global-ready mindset designed to deliver immediate, measurable metrics to high-growth engineering teams.

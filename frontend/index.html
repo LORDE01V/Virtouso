@@ -1,0 +1,1631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kgothatso Mokgashi - Software Engineer & AI Specialist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #09090b;
+            color: #fafafa;
+            overflow-x: hidden;
+            min-width: 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass-effect {
+            background: rgba(24, 24, 27, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        body.splash-active {
+            overflow: hidden;
+        }
+
+        .splash-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #000000;
+            opacity: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .splash-overlay.hidden {
+            animation: fadeOut 0.7s ease-out forwards;
+            pointer-events: none;
+        }
+
+        .splash-bg-name {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(2.75rem, 13vw, 8.5rem);
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            line-height: 1;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.14);
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .splash-bg-name.top {
+            top: clamp(6%, 10vh, 12%);
+            animation: splashNameInTop 1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+        }
+
+        .splash-bg-name.bottom {
+            bottom: clamp(14%, 18vh, 20%);
+            animation: splashNameInBottom 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        }
+
+        @keyframes splashNameInTop {
+            from { opacity: 0; transform: translateX(-50%) translateY(-32px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        @keyframes splashNameInBottom {
+            from { opacity: 0; transform: translateX(-50%) translateY(32px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        .splash-center {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .splash-card {
+            position: relative;
+            width: clamp(260px, 72vw, 340px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #18181b;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.55);
+            animation: slideUp 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+        }
+
+        .splash-card-image {
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+        }
+
+        .splash-card-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 56px 16px 16px;
+            background: linear-gradient(
+                to top,
+                rgba(0, 0, 0, 0.95) 0%,
+                rgba(0, 0, 0, 0.65) 55%,
+                transparent 100%
+            );
+        }
+
+        .splash-card-name {
+            font-size: clamp(1.125rem, 4vw, 1.5rem);
+            font-weight: 700;
+            color: #fafafa;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .splash-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(24, 24, 27, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: clamp(0.6875rem, 2.5vw, 0.75rem);
+            color: #a1a1aa;
+        }
+
+        .splash-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            flex-shrink: 0;
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+        }
+
+        .splash-cta {
+            position: absolute;
+            bottom: clamp(16px, 4vh, 28px);
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(0.625rem, 2vw, 0.6875rem);
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(161, 161, 170, 0.75);
+            animation: fadeIn 0.8s ease 1s both;
+            pointer-events: none;
+            white-space: nowrap;
+            z-index: 3;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-item {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: #a1a1aa;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: #fafafa;
+        }
+
+        .nav-item.primary {
+            background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+            color: white;
+        }
+
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            padding-top: env(safe-area-inset-top, 0);
+        }
+
+        .site-header-inner {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            position: relative;
+        }
+
+        .site-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .site-brand-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+            white-space: nowrap;
+        }
+
+        .nav-toggle {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.04);
+            color: #fafafa;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .nav-toggle:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .site-nav {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .page-main {
+            padding-top: 72px;
+            padding-bottom: 48px;
+        }
+
+        .page-section {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 48px 16px;
+        }
+
+        .page-section-narrow {
+            max-width: 56rem;
+            margin: 0 auto;
+            padding: 48px 16px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .hero-title {
+            font-size: clamp(1.75rem, 5vw, 3rem);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 24px;
+        }
+
+        .hero-text {
+            font-size: clamp(0.9375rem, 2.5vw, 1.125rem);
+            color: #a1a1aa;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .hero-image-wrap {
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 320px;
+            aspect-ratio: 4 / 5;
+            height: auto;
+            max-height: 480px;
+            border-radius: 16px;
+            object-fit: cover;
+            border: 1px solid #27272a;
+        }
+
+        .section-heading {
+            font-size: clamp(1.375rem, 4vw, 1.5rem);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        .site-footer-inner {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 32px 16px;
+            text-align: center;
+            font-size: 0.875rem;
+            color: #71717a;
+        }
+
+        .site-footer-inner p {
+            word-break: break-word;
+        }
+
+        .modal-panel {
+            width: 100%;
+            max-width: 32rem;
+            max-height: min(90vh, 720px);
+            overflow-y: auto;
+            padding: clamp(20px, 5vw, 32px);
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #a1a1aa;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .chat-bubble {
+            display: none;
+        }
+
+        .status-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            padding: 2px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            flex-shrink: 0;
+        }
+
+        .status-avatar-sm {
+            width: 36px;
+            height: 36px;
+        }
+
+        .status-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            border: 2px solid #09090b;
+        }
+
+        .wa-chat {
+            display: flex;
+            flex-direction: column;
+            height: clamp(340px, 52vh, 520px);
+            min-height: 300px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #0b141a;
+            width: 100%;
+        }
+
+        .wa-chat-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: #111b21;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .wa-chat-title {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: #e9edef;
+        }
+
+        .wa-online {
+            font-size: 0.75rem;
+            color: #10b981;
+        }
+
+        .wa-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.03) 0%, transparent 40%),
+                #0b141a;
+        }
+
+        .wa-row {
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            margin-bottom: 6px;
+            max-width: 100%;
+        }
+
+        .wa-row.user {
+            justify-content: flex-end;
+        }
+
+        .wa-row.assistant {
+            justify-content: flex-start;
+        }
+
+        .wa-msg-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 2px solid #10b981;
+        }
+
+        .wa-bubble {
+            max-width: min(75%, 420px);
+            padding: 8px 12px 6px;
+            border-radius: 8px;
+            font-size: clamp(0.8125rem, 2.5vw, 0.875rem);
+            line-height: 1.45;
+            word-wrap: break-word;
+            overflow-wrap: anywhere;
+            position: relative;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        }
+
+        .wa-bubble.user {
+            background: #10b981;
+            color: #ffffff;
+            border-top-right-radius: 2px;
+        }
+
+        .wa-bubble.assistant {
+            background: #202c33;
+            color: #e9edef;
+            border-top-left-radius: 2px;
+        }
+
+        .wa-time {
+            display: block;
+            font-size: 0.6875rem;
+            color: rgba(255, 255, 255, 0.55);
+            text-align: right;
+            margin-top: 4px;
+        }
+
+        .wa-bubble.assistant .wa-time {
+            color: rgba(233, 237, 239, 0.45);
+        }
+
+        .wa-input-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            background: #111b21;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .wa-input {
+            flex: 1;
+            min-width: 0;
+            padding: 10px 14px;
+            border-radius: 24px;
+            background: #2a3942;
+            border: none;
+            color: #e9edef;
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        .wa-input:focus {
+            outline: none;
+        }
+
+        .wa-input::placeholder {
+            color: #8696a0;
+        }
+
+        .wa-send-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: none;
+            background: #10b981;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.2s ease;
+        }
+
+        .wa-send-btn:hover {
+            background: #059669;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            background: transparent;
+            color: #a1a1aa;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: #fafafa;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .input-field {
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: rgba(24, 24, 27, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #fafafa;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .input-field:focus {
+            outline: none;
+            background: rgba(24, 24, 27, 0.95);
+            border-color: rgba(255, 255, 255, 0.16);
+        }
+
+        .input-field::placeholder {
+            color: #52525b;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-top-color: #fafafa;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .time-slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .time-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        }
+
+        .time-slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        }
+
+        .time-display {
+            text-align: center;
+            font-size: clamp(1rem, 4vw, 1.25rem);
+            font-weight: 600;
+            color: #10b981;
+            margin-top: 8px;
+        }
+
+        @media (min-width: 640px) {
+            .site-header-inner {
+                padding: 16px 24px;
+            }
+
+            .page-main {
+                padding-top: 80px;
+                padding-bottom: 80px;
+            }
+
+            .page-section,
+            .page-section-narrow {
+                padding: 64px 24px;
+            }
+
+            .modal-actions {
+                flex-direction: row;
+            }
+
+            .modal-actions .btn-primary,
+            .modal-actions .btn-secondary {
+                flex: 1;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 48px;
+            }
+
+            .about-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 32px;
+            }
+
+            .wa-bubble {
+                max-width: 75%;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .nav-toggle {
+                display: flex;
+            }
+
+            .site-nav {
+                display: none;
+                position: absolute;
+                top: calc(100% + 4px);
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 4px;
+                padding: 12px;
+                background: rgba(24, 24, 27, 0.98);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 12px;
+                backdrop-filter: blur(12px);
+            }
+
+            .site-nav.open {
+                display: flex;
+            }
+
+            .site-nav .nav-item {
+                width: 100%;
+                justify-content: center;
+                padding: 12px;
+            }
+
+            .hero-actions .btn-primary,
+            .hero-actions .btn-secondary {
+                flex: 1 1 calc(50% - 6px);
+                min-width: 140px;
+            }
+
+            .wa-row.assistant .wa-msg-avatar {
+                width: 24px;
+                height: 24px;
+            }
+
+            .wa-bubble {
+                max-width: 88%;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .site-brand-name {
+                font-size: 0.8125rem;
+            }
+
+            .hero-actions .btn-primary,
+            .hero-actions .btn-secondary {
+                flex: 1 1 100%;
+            }
+
+            .splash-bg-name {
+                font-size: clamp(2rem, 11vw, 3rem);
+            }
+
+            .splash-card {
+                width: clamp(220px, 80vw, 280px);
+            }
+        }
+
+        @media (max-height: 600px) and (orientation: landscape) {
+            .splash-bg-name.top {
+                top: 4%;
+            }
+
+            .splash-bg-name.bottom {
+                bottom: 18%;
+            }
+
+            .splash-card {
+                width: clamp(180px, 32vh, 240px);
+            }
+
+            .splash-card-image {
+                aspect-ratio: 3 / 4;
+            }
+
+            .splash-cta {
+                bottom: 8px;
+            }
+
+            .wa-chat {
+                height: clamp(260px, 70vh, 400px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash" class="splash-overlay">
+        <div class="splash-bg-name top" aria-hidden="true">KGOTHATSO</div>
+        <div class="splash-bg-name bottom" aria-hidden="true">MOKGASHI</div>
+        <div class="splash-center">
+            <div class="splash-card">
+                <img id="splash-image" class="splash-card-image" alt="Kgothatso Mokgashi">
+                <div class="splash-card-footer">
+                    <div class="splash-card-name">Kgothatso Mokgashi</div>
+                    <div class="splash-status-pill">
+                        <span class="splash-status-dot"></span>
+                        Available for opportunities — 2026
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="splash-cta">Click anywhere to continue ↓</p>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="site-header glass-effect border-b border-zinc-800">
+        <div class="site-header-inner">
+            <div class="site-brand">
+                <div class="status-avatar status-avatar-sm">
+                    <img id="header-avatar" alt="Virtuoso">
+                </div>
+                <span class="site-brand-name">Virtuoso</span>
+            </div>
+            <button id="nav-toggle" class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+            <nav id="site-nav" class="site-nav">
+                <a href="#about" class="nav-item">About</a>
+                <a href="#chat" class="nav-item">Chat</a>
+                <a href="#" id="nav-resume" class="nav-item">Resume</a>
+                <a href="#" id="nav-github" target="_blank" rel="noopener noreferrer" class="nav-item">GitHub</a>
+                <a href="#" id="nav-linkedin" target="_blank" rel="noopener noreferrer" class="nav-item primary">LinkedIn</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="page-main">
+        <!-- Hero Section -->
+        <section class="page-section hero-grid">
+            <div>
+                <h2 class="hero-title">
+                    AI Engineer &
+                    <span class="gradient-text">Full Stack Developer</span>
+                </h2>
+                <p class="hero-text">
+                    Building intelligent systems and scalable applications. Specialized in Python, FastAPI, React, and LLM integration. Helping businesses solve complex problems with clean, maintainable code.
+                </p>
+                <div class="flex flex-wrap gap-3 mb-8">
+                    <span class="skill-badge">Python</span>
+                    <span class="skill-badge">FastAPI</span>
+                    <span class="skill-badge">React</span>
+                    <span class="skill-badge">OpenAI</span>
+                    <span class="skill-badge">PostgreSQL</span>
+                    <span class="skill-badge">Docker</span>
+                </div>
+                <div class="hero-actions">
+                    <button id="resume-btn" class="btn-primary">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                        </svg>
+                        Download Resume
+                    </button>
+                    <button id="interview-btn" class="btn-primary">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        Set Interview
+                    </button>
+                    <a href="#" id="contact-whatsapp" class="btn-secondary">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                        Contact
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image-wrap">
+                <img id="hero-image" class="hero-image" alt="Kgothatso">
+            </div>
+        </section>
+
+        <!-- Chat Section -->
+        <section id="chat" class="page-section-narrow">
+            <div class="mb-6 md:mb-8">
+                <h3 class="section-heading">Ask Virtuoso</h3>
+                <p class="text-zinc-400 text-sm sm:text-base">Get instant answers about my experience, skills, and availability.</p>
+            </div>
+            <div class="wa-chat">
+                <div class="wa-chat-header">
+                    <div class="status-avatar status-avatar-sm">
+                        <img id="chat-header-avatar" alt="Virtuoso">
+                    </div>
+                    <div>
+                        <div class="wa-chat-title">Virtuoso</div>
+                        <div class="wa-online">online</div>
+                    </div>
+                </div>
+                <div id="chat-display" class="wa-messages">
+                    <div class="wa-row assistant">
+                        <img class="wa-msg-avatar" id="chat-avatar-initial" alt="">
+                        <div class="wa-bubble assistant">
+                            Hi there, and welcome. I am Virtuoso, Kgothatso's assistant. Ask me about his experience, skills, projects, or availability. How can I help you today?
+                            <span class="wa-time"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="wa-input-bar">
+                    <input
+                        id="chat-input"
+                        type="text"
+                        placeholder="Type a message"
+                        class="wa-input"
+                        autocomplete="off"
+                    >
+                    <button id="chat-send" class="wa-send-btn" aria-label="Send message">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="page-section-narrow">
+            <h3 class="section-heading mb-6 md:mb-8">About</h3>
+            <div class="about-grid">
+                <div class="glass-effect p-6 rounded-xl">
+                    <h4 class="font-bold mb-3 flex items-center gap-2">
+                        <span class="w-6 h-6 bg-green-500/20 rounded flex items-center justify-center text-green-400">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                        </span>
+                        Engineering
+                    </h4>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Python, TypeScript, React, FastAPI, PostgreSQL. Building scalable systems with clean architecture and best practices.</p>
+                </div>
+                <div class="glass-effect p-6 rounded-xl">
+                    <h4 class="font-bold mb-3 flex items-center gap-2">
+                        <span class="w-6 h-6 bg-cyan-500/20 rounded flex items-center justify-center text-cyan-400">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v1h8v-1zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-1a6 6 0 00-9-5.5A6 6 0 004 18v1h12z"/>
+                            </svg>
+                        </span>
+                        AI & LLMs
+                    </h4>
+                    <p class="text-sm text-zinc-400 leading-relaxed">OpenAI integration, prompt engineering, RAG systems. Creating intelligent applications that leverage modern AI capabilities.</p>
+                </div>
+                <div class="glass-effect p-6 rounded-xl">
+                    <h4 class="font-bold mb-3 flex items-center gap-2">
+                        <span class="w-6 h-6 bg-emerald-500/20 rounded flex items-center justify-center text-emerald-400">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"/>
+                            </svg>
+                        </span>
+                        Products
+                    </h4>
+                    <p class="text-sm text-zinc-400 leading-relaxed">End-to-end development from API design to frontend. Deployed applications serving real users and solving business problems.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-zinc-800 glass-effect">
+        <div class="site-footer-inner">
+            <p>Kgothatso Mokgashi | Software Engineer | Johannesburg, South Africa</p>
+            <p class="mt-2" id="footer-contact" hidden>
+                <a id="footer-email" href="#" class="text-emerald-400 hover:text-emerald-300 transition"></a>
+                <span id="footer-contact-separator" hidden> | </span>
+                <span id="footer-phone"></span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Interview Modal -->
+    <div id="interview-modal" style="display: none;" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
+        <div class="glass-effect rounded-t-2xl sm:rounded-2xl modal-panel">
+            <h3 class="text-xl font-bold mb-6">Schedule an Interview</h3>
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Date</label>
+                    <input type="date" id="interview-date" class="input-field w-full">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">Your Timezone</label>
+                    <select id="interview-timezone" class="input-field w-full">
+                        <option value="UTC">UTC</option>
+                        <option value="US/Eastern">US Eastern</option>
+                        <option value="US/Central">US Central</option>
+                        <option value="US/Mountain">US Mountain</option>
+                        <option value="US/Pacific">US Pacific</option>
+                        <option value="Europe/London">Europe/London</option>
+                        <option value="Europe/Paris">Europe/Paris</option>
+                        <option value="Europe/Amsterdam">Europe/Amsterdam</option>
+                        <option value="Asia/Dubai">Asia/Dubai</option>
+                        <option value="Asia/Singapore">Asia/Singapore</option>
+                        <option value="Asia/Tokyo">Asia/Tokyo</option>
+                        <option value="Asia/Hong_Kong">Asia/Hong_Kong</option>
+                        <option value="Australia/Sydney">Australia/Sydney</option>
+                        <option value="Africa/Johannesburg">Africa/Johannesburg (SA)</option>
+                    </select>
+                    <p class="text-xs text-zinc-500 mt-1">Your time will be converted to SA time (SAST) for the notification</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-3">Time (08:00 AM - 03:00 AM next day)</label>
+                    <input 
+                        type="range" 
+                        id="interview-time-slider" 
+                        class="time-slider w-full" 
+                        min="8" 
+                        max="27" 
+                        step="0.5"
+                        value="10"
+                    >
+                    <div class="time-display" id="time-display">10:00 AM</div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">Meeting Topic</label>
+                    <input type="text" id="interview-topic" placeholder="e.g., Full Stack Engineer Role" class="input-field w-full">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">Zoom/Teams Link (optional for in-person)</label>
+                    <input type="text" id="interview-link" placeholder="https://zoom.us/... or https://teams.microsoft.com/..." class="input-field w-full">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">Physical Address (optional for virtual)</label>
+                    <input type="text" id="interview-address" placeholder="Start typing an address for suggestions..." class="input-field w-full" autocomplete="off">
+                    <div id="address-suggestions" class="mt-2 space-y-1 hidden"></div>
+                    <p class="text-xs text-zinc-500 mt-1">Provide a meeting link or an address (at least one is required)</p>
+                </div>
+
+                <div class="modal-actions">
+                    <button id="interview-confirm" class="btn-primary">Confirm</button>
+                    <button id="interview-cancel" class="btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // Configuration
+        // ============================================================
+
+        const CONFIG = {
+            PROFILE_IMAGE: '/me/kgothatso_BG.png',
+            API_BASE_URL: window.location.origin || 'http://127.0.0.1:7860',
+            RESUME_FILENAME: 'Kgothatso_Mokgashi_Resume.docx',
+        };
+
+        function setProfileImages() {
+            const sources = [
+                CONFIG.PROFILE_IMAGE,
+                `${CONFIG.API_BASE_URL}/api/profile-image`,
+            ];
+
+            const imageTargets = [
+                'splash-image',
+                'hero-image',
+                'header-avatar',
+                'chat-header-avatar',
+                'chat-avatar-initial',
+            ];
+
+            imageTargets.forEach((id) => {
+                const img = document.getElementById(id);
+                if (!img) return;
+
+                let index = 0;
+                img.onerror = () => {
+                    index += 1;
+                    if (index < sources.length) {
+                        img.src = sources[index];
+                    }
+                };
+                img.src = sources[0];
+            });
+
+            document.querySelectorAll('.wa-msg-avatar:not([id])').forEach((img) => {
+                img.src = sources[0];
+            });
+        }
+
+        function formatChatTime(date = new Date()) {
+            return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function getAssistantAvatarSrc() {
+            const avatar = document.getElementById('chat-header-avatar');
+            return avatar && avatar.src ? avatar.src : CONFIG.PROFILE_IMAGE;
+        }
+
+        function appendChatMessage(text, role) {
+            const display = document.getElementById('chat-display');
+            const row = document.createElement('div');
+            row.className = `wa-row ${role}`;
+
+            if (role === 'assistant') {
+                const avatar = document.createElement('img');
+                avatar.className = 'wa-msg-avatar';
+                avatar.alt = 'Virtuoso';
+                avatar.src = getAssistantAvatarSrc();
+                row.appendChild(avatar);
+            }
+
+            const bubble = document.createElement('div');
+            bubble.className = `wa-bubble ${role}`;
+
+            const body = document.createElement('span');
+            body.textContent = text;
+            bubble.appendChild(body);
+
+            const time = document.createElement('span');
+            time.className = 'wa-time';
+            time.textContent = formatChatTime();
+            bubble.appendChild(time);
+
+            row.appendChild(bubble);
+            display.appendChild(row);
+            display.scrollTop = display.scrollHeight;
+            return row;
+        }
+
+        function appendLoadingMessage() {
+            const display = document.getElementById('chat-display');
+            const row = document.createElement('div');
+            row.className = 'wa-row assistant';
+            row.id = 'chat-loading-row';
+
+            const avatar = document.createElement('img');
+            avatar.className = 'wa-msg-avatar';
+            avatar.alt = 'Virtuoso';
+            avatar.src = getAssistantAvatarSrc();
+            row.appendChild(avatar);
+
+            const bubble = document.createElement('div');
+            bubble.className = 'wa-bubble assistant flex items-center gap-2';
+            bubble.innerHTML = '<span class="loading-spinner"></span> typing...';
+            row.appendChild(bubble);
+
+            display.appendChild(row);
+            display.scrollTop = display.scrollHeight;
+            return row;
+        }
+
+        document.querySelector('#chat-display .wa-time').textContent = formatChatTime();
+
+        // ============================================================
+        // Splash Screen
+        // ============================================================
+
+        const SPLASH_AUTO_DISMISS_MS = 7000;
+        let splashDismissed = false;
+        let splashTimer = null;
+
+        function hideSplash() {
+            if (splashDismissed) return;
+            splashDismissed = true;
+
+            if (splashTimer) {
+                clearTimeout(splashTimer);
+                splashTimer = null;
+            }
+
+            document.body.classList.remove('splash-active');
+
+            const splash = document.getElementById('splash');
+            if (!splash) return;
+
+            splash.classList.add('hidden');
+            setTimeout(() => splash.remove(), 700);
+        }
+
+        document.body.classList.add('splash-active');
+        setProfileImages();
+        loadPublicConfig();
+
+        async function loadPublicConfig() {
+            try {
+                const response = await fetch(`${CONFIG.API_BASE_URL}/api/config`);
+                if (!response.ok) return;
+
+                const cfg = await response.json();
+
+                if (cfg.github_url) {
+                    const github = document.getElementById('nav-github');
+                    github.href = cfg.github_url;
+                }
+
+                if (cfg.linkedin_url) {
+                    const linkedin = document.getElementById('nav-linkedin');
+                    linkedin.href = cfg.linkedin_url;
+                }
+
+                if (cfg.whatsapp_url) {
+                    const whatsapp = document.getElementById('contact-whatsapp');
+                    whatsapp.href = cfg.whatsapp_url;
+                } else {
+                    document.getElementById('contact-whatsapp').style.display = 'none';
+                }
+
+                const footerContact = document.getElementById('footer-contact');
+                const footerEmail = document.getElementById('footer-email');
+                const footerPhone = document.getElementById('footer-phone');
+                const footerSeparator = document.getElementById('footer-contact-separator');
+                let hasContact = false;
+
+                if (cfg.contact_email) {
+                    footerEmail.href = `mailto:${cfg.contact_email}`;
+                    footerEmail.textContent = cfg.contact_email;
+                    hasContact = true;
+                }
+
+                if (cfg.contact_phone) {
+                    if (cfg.contact_email) {
+                        footerSeparator.hidden = false;
+                    }
+                    footerPhone.textContent = cfg.contact_phone;
+                    hasContact = true;
+                }
+
+                if (hasContact) {
+                    footerContact.hidden = false;
+                }
+
+                if (cfg.resume_filename) {
+                    CONFIG.RESUME_FILENAME = cfg.resume_filename;
+                }
+            } catch (error) {
+                console.log('Public config unavailable:', error);
+            }
+        }
+
+        document.getElementById('splash').addEventListener('click', hideSplash);
+        document.addEventListener('keydown', (e) => {
+            if (splashDismissed || !document.getElementById('splash')) return;
+            if (e.target.matches('input, textarea')) return;
+
+            if (['Escape', 'Enter', ' '].includes(e.key)) {
+                e.preventDefault();
+                hideSplash();
+            }
+        });
+
+        splashTimer = setTimeout(hideSplash, SPLASH_AUTO_DISMISS_MS);
+
+        // ============================================================
+        // Time Slider Handler (8am - 3am next day)
+        // ============================================================
+
+        function updateTimeDisplay(value) {
+            const hours = Math.floor(value);
+            const minutes = (value % 1) === 0 ? 0 : 30;
+            let displayHours = hours;
+            let period = 'AM';
+            let dayInfo = '';
+            
+            if (hours >= 24) {
+                // Next day (3am = 27:00)
+                displayHours = hours - 24;
+                dayInfo = ' (next day)';
+            } else if (hours >= 12) {
+                period = 'PM';
+                displayHours = hours === 12 ? 12 : hours - 12;
+            }
+            
+            const timeStr = `${String(displayHours).padStart(2, '0')}:${String(minutes).padStart(2, '0')} ${period}${dayInfo}`;
+            document.getElementById('time-display').textContent = timeStr;
+        }
+
+        document.getElementById('interview-time-slider').addEventListener('input', (e) => {
+            updateTimeDisplay(e.target.value);
+        });
+
+        // Initialize time display
+        updateTimeDisplay(document.getElementById('interview-time-slider').value);
+
+        // ============================================================
+        // Chat Functionality
+        // ============================================================
+
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            const display = document.getElementById('chat-display');
+
+            appendChatMessage(message, 'user');
+            input.value = '';
+
+            const loadingRow = appendLoadingMessage();
+
+            try {
+                const response = await fetch(`${CONFIG.API_BASE_URL}/api/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                loadingRow.remove();
+
+                if (result.action === 'chat' && result.message) {
+                    appendChatMessage(result.message, 'assistant');
+                } else if (result.action === 'open_link' && result.url) {
+                    window.open(result.url, '_blank');
+                    appendChatMessage('Opening that link for you now.', 'assistant');
+                } else if (result.action === 'download_resume' || result.action === 'download') {
+                    appendChatMessage('Starting your resume download now.', 'assistant');
+                    downloadResume();
+                } else if (result.action === 'notification' && result.message) {
+                    appendChatMessage(result.message, 'assistant');
+                } else if (result.message) {
+                    appendChatMessage(result.message, 'assistant');
+                } else if (result.error) {
+                    appendChatMessage('Error: ' + result.error, 'assistant');
+                } else {
+                    appendChatMessage('No response received. Please try again.', 'assistant');
+                }
+            } catch (error) {
+                console.error('Chat error:', error);
+                loadingRow.remove();
+                appendChatMessage('Service unavailable. Please try again.', 'assistant');
+            }
+
+            display.scrollTop = display.scrollHeight;
+        }
+
+        document.getElementById('chat-send').addEventListener('click', sendMessage);
+        document.getElementById('chat-input').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // ============================================================
+        // Interview Scheduling
+        // ============================================================
+
+        document.getElementById('interview-btn').addEventListener('click', () => {
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const tzSelect = document.getElementById('interview-timezone');
+            if (Array.from(tzSelect.options).find(opt => opt.value === tz)) {
+                tzSelect.value = tz;
+            }
+            document.getElementById('interview-modal').style.display = 'flex';
+        });
+
+        document.getElementById('interview-cancel').addEventListener('click', () => {
+            document.getElementById('interview-modal').style.display = 'none';
+        });
+
+        document.getElementById('interview-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'interview-modal') {
+                document.getElementById('interview-modal').style.display = 'none';
+            }
+        });
+
+        // ============================================================
+        // Address Autocomplete (OpenStreetMap Nominatim)
+        // ============================================================
+
+        let addressLookupTimer = null;
+
+        async function fetchAddressSuggestions(query) {
+            const url = new URL('https://nominatim.openstreetmap.org/search');
+            url.searchParams.set('format', 'json');
+            url.searchParams.set('q', query);
+            url.searchParams.set('countrycodes', 'za');
+            url.searchParams.set('limit', '5');
+            url.searchParams.set('addressdetails', '0');
+
+            const response = await fetch(url.toString(), {
+                headers: { 'Accept-Language': 'en' },
+            });
+
+            if (!response.ok) {
+                throw new Error(`Address lookup failed (${response.status})`);
+            }
+
+            return response.json();
+        }
+
+        document.getElementById('interview-address').addEventListener('input', (e) => {
+            const input = e.target.value.trim();
+            const suggestionsDiv = document.getElementById('address-suggestions');
+
+            clearTimeout(addressLookupTimer);
+
+            if (input.length < 3) {
+                suggestionsDiv.classList.add('hidden');
+                suggestionsDiv.innerHTML = '';
+                return;
+            }
+
+            addressLookupTimer = setTimeout(async () => {
+                try {
+                    const results = await fetchAddressSuggestions(input);
+                    suggestionsDiv.innerHTML = '';
+
+                    if (!results.length) {
+                        suggestionsDiv.classList.add('hidden');
+                        return;
+                    }
+
+                    suggestionsDiv.classList.remove('hidden');
+                    results.forEach((result) => {
+                        const div = document.createElement('div');
+                        div.className = 'p-2 bg-zinc-800 rounded cursor-pointer hover:bg-zinc-700 text-sm';
+                        div.textContent = result.display_name;
+                        div.addEventListener('click', () => {
+                            document.getElementById('interview-address').value = result.display_name;
+                            suggestionsDiv.classList.add('hidden');
+                        });
+                        suggestionsDiv.appendChild(div);
+                    });
+                } catch (error) {
+                    console.log('Address autocomplete error:', error);
+                    suggestionsDiv.classList.add('hidden');
+                }
+            }, 350);
+        });
+
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', (e) => {
+            if (e.target.id !== 'interview-address') {
+                document.getElementById('address-suggestions').classList.add('hidden');
+            }
+        });
+
+        // ============================================================
+        // Interview Confirmation
+        // ============================================================
+
+        document.getElementById('interview-confirm').addEventListener('click', async () => {
+            let date = document.getElementById('interview-date').value;
+            const slider = document.getElementById('interview-time-slider');
+            const timeValue = parseFloat(slider.value);
+
+            let hours = Math.floor(timeValue);
+            const minutes = (timeValue % 1) === 0 ? '00' : '30';
+
+            if (hours >= 24) {
+                const nextDay = new Date(`${date}T00:00:00`);
+                nextDay.setDate(nextDay.getDate() + 1);
+                date = nextDay.toISOString().slice(0, 10);
+                hours -= 24;
+            }
+
+            const time = `${String(hours).padStart(2, '0')}:${minutes}`;
+            const topic = document.getElementById('interview-topic').value.trim();
+            const link = document.getElementById('interview-link').value.trim();
+            const address = document.getElementById('interview-address').value.trim();
+            const timezone = document.getElementById('interview-timezone').value;
+
+            if (!date || !topic) {
+                alert('Please fill in the date and meeting topic.');
+                return;
+            }
+
+            if (!link && !address) {
+                alert('Please provide a meeting link or a physical address.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${CONFIG.API_BASE_URL}/api/schedule-interview`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        date: date,
+                        time: time,
+                        topic: topic,
+                        link: link,
+                        address: address,
+                        timezone: timezone,
+                    }),
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    alert(result.error || 'Failed to schedule interview. Please try again.');
+                    return;
+                }
+
+                if (result.message || result.action === 'notification') {
+                    alert(result.message || 'Interview scheduled successfully!');
+                    document.getElementById('interview-modal').style.display = 'none';
+                    document.getElementById('interview-date').value = '';
+                    document.getElementById('interview-topic').value = '';
+                    document.getElementById('interview-link').value = '';
+                    document.getElementById('interview-address').value = '';
+                } else if (result.error) {
+                    alert('Error: ' + result.error);
+                }
+            } catch (error) {
+                console.error('Interview scheduling error:', error);
+                alert('Failed to schedule interview. Please try again.');
+            }
+        });
+
+        // ============================================================
+        // Resume Download
+        // ============================================================
+
+        async function downloadResume() {
+            try {
+                const response = await fetch(`${CONFIG.API_BASE_URL}/api/download-resume`);
+                if (!response.ok) {
+                    throw new Error('Resume not available');
+                }
+                
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = CONFIG.RESUME_FILENAME;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error('Resume download error:', error);
+                alert('Resume download unavailable: ' + error.message);
+            }
+        }
+
+        document.getElementById('resume-btn').addEventListener('click', downloadResume);
+        document.getElementById('nav-resume').addEventListener('click', (e) => {
+            e.preventDefault();
+            downloadResume();
+            closeNavMenu();
+        });
+
+        // ============================================================
+        // Mobile Navigation
+        // ============================================================
+
+        const navToggle = document.getElementById('nav-toggle');
+        const siteNav = document.getElementById('site-nav');
+
+        function closeNavMenu() {
+            siteNav.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+        }
+
+        navToggle.addEventListener('click', () => {
+            const isOpen = siteNav.classList.toggle('open');
+            navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+
+        siteNav.querySelectorAll('a[href^="#"]').forEach((link) => {
+            link.addEventListener('click', closeNavMenu);
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!siteNav.contains(e.target) && !navToggle.contains(e.target)) {
+                closeNavMenu();
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                closeNavMenu();
+            }
+        });
+    </script>
+</body>
+</html>

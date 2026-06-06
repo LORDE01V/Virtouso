@@ -1,0 +1,30 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# After connecting the repo, add secret values in the Render Dashboard.
+
+services:
+  - type: web
+    name: virtuoso
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: RESUME_URL
+        sync: false
+      - key: CONTACT_EMAIL
+        sync: false
+      - key: CONTACT_PHONE
+        sync: false
+      - key: WHATSAPP_NUMBER
+        sync: false
+      - key: PUSHOVER_USER_KEY
+        sync: false
+      - key: PUSHOVER_APP_TOKEN
+        sync: false
+      - key: LINKEDIN_URL
+        sync: false
+      - key: GITHUB_URL
+        sync: false
